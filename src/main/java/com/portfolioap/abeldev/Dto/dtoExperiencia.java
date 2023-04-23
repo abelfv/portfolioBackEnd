@@ -1,12 +1,16 @@
 package com.portfolioap.abeldev.Dto;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  *
  * @author ABEL DEV
  */
 
 public class dtoExperiencia {
+    @NotBlank
     private String nombreE;
+    @NotBlank
     private String descripcionE;
 
     public dtoExperiencia() {

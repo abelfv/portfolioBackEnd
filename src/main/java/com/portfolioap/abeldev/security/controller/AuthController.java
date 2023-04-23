@@ -2,8 +2,8 @@ package com.portfolioap.abeldev.security.controller;
 
 import com.portfolioap.abeldev.security.Enums.ActionName;
 import com.portfolioap.abeldev.security.dto.LoginUsuario;
-import com.portfolioap.abeldev.security.dto.jwtDto;
-import com.portfolioap.abeldev.security.dto.nuevoUsuario;
+import com.portfolioap.abeldev.security.dto.JwtDto;
+import com.portfolioap.abeldev.security.dto.NuevoUsuario;
 import com.portfolioap.abeldev.security.entity.Rol;
 import com.portfolioap.abeldev.security.entity.Usuario;
 import com.portfolioap.abeldev.security.jwt.jwtProvider;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     @Autowired
@@ -49,7 +49,7 @@ public class AuthController {
     jwtProvider jwtProvider;
 
     @PostMapping("/nuevo")
-    public ResponseEntity<?> nuevo(@Valid @RequestBody nuevoUsuario nuevoUsuario, BindingResult bindingResult) {
+    public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(new mensaje("CORREO NO VALIDO O CAMPOS INCORRECTOS"), HttpStatus.BAD_REQUEST);
         }
@@ -76,7 +76,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<jwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity(new mensaje("CAMPOS INCORRECTOS"), HttpStatus.BAD_REQUEST);
         }
@@ -85,7 +85,7 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        jwtDto jwtDto = new jwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
 
         return new ResponseEntity(jwtDto, HttpStatus.OK);
     }

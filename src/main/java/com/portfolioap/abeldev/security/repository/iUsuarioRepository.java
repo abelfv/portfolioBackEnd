@@ -1,6 +1,6 @@
 package com.portfolioap.abeldev.security.repository;
 
-import com.portfolioap.abeldev.entity.Persona;
+import com.portfolioap.abeldev.security.entity.Usuario;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface interfaceUsuarioRepository extends JpaRepository<Persona, Integer>{
-    Optional<Persona> findByNombreUsuario(String nombreUsuario);
+public interface iUsuarioRepository extends JpaRepository<Usuario, Integer>{
+    Optional<Usuario> findByNombreUsuario(String nombreUsuario);
     
     boolean existsByNombreUsuario(String nombreUsuario);
     boolean existsByCorreo(String correo);

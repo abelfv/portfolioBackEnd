@@ -2,7 +2,6 @@ package com.portfolioap.abeldev.security.jwt;
 
 import com.portfolioap.abeldev.security.service.userImplDetails;
 import java.io.IOException;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,12 +1,12 @@
 package com.portfolioap.abeldev.service;
 
 import com.portfolioap.abeldev.entity.Persona;
-import com.portfolioap.abeldev.repository.IusuarioRepo;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.portfolioap.abeldev.repository.IPersonaRepository;
 
 /**
  *
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ImpOfUserServ{
     @Autowired
-    IusuarioRepo ipersonaRepository;
+    IPersonaRepository ipersonaRepository;
     
     public List<Persona> list(){
          return ipersonaRepository.findAll();

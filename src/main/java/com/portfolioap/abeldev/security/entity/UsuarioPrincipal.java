@@ -11,11 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author ABEL DEV
  */
-public class primerUsuario implements UserDetails {
-
-    public static UserDetails build(com.portfolioap.abeldev.entity.Persona usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public class UsuarioPrincipal implements UserDetails {
 
     private String nombre;
     private String nombreUsuario;
@@ -23,7 +19,7 @@ public class primerUsuario implements UserDetails {
     private String contraseña;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public primerUsuario(String nombre, String nombreUsuario, String correo, String contraseña, Collection<? extends GrantedAuthority> authorities) {
+    public UsuarioPrincipal(String nombre, String nombreUsuario, String correo, String contraseña, Collection<? extends GrantedAuthority> authorities) {
         this.nombre = nombre;
         this.nombreUsuario = nombreUsuario;
         this.correo = correo;
@@ -31,9 +27,9 @@ public class primerUsuario implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static primerUsuario build(Usuario usuario) {
+    public static UsuarioPrincipal build(Usuario usuario) {
         List<GrantedAuthority> authorities = usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol.getRolNombre().name())).collect(Collectors.toList());
-        return new primerUsuario(usuario.getNombre(), usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getContraseña(), authorities);
+        return new UsuarioPrincipal(usuario.getNombre(), usuario.getNombreUsuario(), usuario.getCorreo(), usuario.getContraseña(), authorities);
     }
 
     @Override
@@ -41,7 +37,7 @@ public class primerUsuario implements UserDetails {
         return authorities;
     }
 
-    public String getName() {
+    public String getNombre() {
         return nombre;
     }
 

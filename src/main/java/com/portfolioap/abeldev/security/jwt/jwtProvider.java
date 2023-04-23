@@ -1,6 +1,6 @@
 package com.portfolioap.abeldev.security.jwt;
 
-import com.portfolioap.abeldev.security.entity.primerUsuario;
+import com.portfolioap.abeldev.security.entity.UsuarioPrincipal;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -29,7 +29,7 @@ public class jwtProvider {
     private int expiration;
 
     public String generateToken(Authentication authentication) {
-        primerUsuario primerusuario = (primerUsuario) authentication.getPrincipal();
+        UsuarioPrincipal primerusuario = (UsuarioPrincipal) authentication.getPrincipal();
         return Jwts.builder().setSubject(primerusuario.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 1000))

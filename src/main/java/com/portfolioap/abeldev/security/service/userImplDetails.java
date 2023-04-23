@@ -1,7 +1,7 @@
 package com.portfolioap.abeldev.security.service;
 
-import com.portfolioap.abeldev.entity.Persona;
-import com.portfolioap.abeldev.security.entity.primerUsuario;
+import com.portfolioap.abeldev.security.entity.Usuario;
+import com.portfolioap.abeldev.security.entity.UsuarioPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +20,7 @@ public class userImplDetails implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String nombreUsuario) throws UsernameNotFoundException {
-    Persona usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
-    return primerUsuario.build(usuario);
+    Usuario usuario = usuarioService.getByNombreUsuario(nombreUsuario).get();
+    return UsuarioPrincipal.build(usuario);
     }
 }

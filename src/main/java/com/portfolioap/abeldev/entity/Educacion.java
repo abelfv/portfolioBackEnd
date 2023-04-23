@@ -1,9 +1,9 @@
 package com.portfolioap.abeldev.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
@@ -49,6 +49,5 @@ public class Educacion {
     public void setDescripcionE(String descripcionE) {
         this.descripcionE = descripcionE;
     }
-    
-    
+      
 }
