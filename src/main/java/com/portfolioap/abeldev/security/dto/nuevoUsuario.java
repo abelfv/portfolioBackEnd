@@ -8,7 +8,7 @@ import java.util.Set;
  * @author ABEL DEV
  */
 
-public class nuevoUsuario {
+public class NuevoUsuario {
     private String nombre;
     private String nombreUsuario;
     private String correo;
