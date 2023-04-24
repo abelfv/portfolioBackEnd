@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://portfolio-front-abeldev.web.app","http://localhost:4200"})
 @RequestMapping("/skill")
 public class CHys {
     @Autowired
@@ -72,16 +72,13 @@ public class CHys {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoHys dtohys) {
-        //Validamos si existe el ID
         if (!shys.existsById(id)) {
             return new ResponseEntity(new mensaje("ID NO EXISTE"), HttpStatus.BAD_REQUEST);
         }
-        //Compara nombre de skills
         if (shys.existsByNombre(dtohys.getNombre()) && shys.getByNombre(dtohys.getNombre()).get()
                 .getId() != id) {
             return new ResponseEntity(new mensaje("ESTA HABILIDAD YA EXISTE"), HttpStatus.BAD_REQUEST);
         }
-        //No puede estar vacio
         if (StringUtils.isBlank(dtohys.getNombre())) {
             return new ResponseEntity(new mensaje("ESTE CAMPO ES OBLIGATORIO"), HttpStatus.BAD_REQUEST);
         }

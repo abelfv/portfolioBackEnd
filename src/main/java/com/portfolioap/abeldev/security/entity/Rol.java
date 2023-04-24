@@ -44,7 +44,5 @@ public class Rol {
 
     public void setRolNombre(ActionName rolNombre) {
         this.rolNombre = rolNombre;
-    }
-    
-    
+    } 
 }

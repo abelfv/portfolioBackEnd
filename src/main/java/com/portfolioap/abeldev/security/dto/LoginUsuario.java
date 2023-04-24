@@ -27,7 +27,5 @@ public class LoginUsuario {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
-    }
-    
-    
+    } 
 }
