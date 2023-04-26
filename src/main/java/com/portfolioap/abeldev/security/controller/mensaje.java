@@ -5,13 +5,13 @@ package com.portfolioap.abeldev.security.controller;
  * @author ABEL DEV
  */
 
-public class mensaje {
+public class Mensaje {
     private String mensaje;
 
-    public mensaje() {
+    public Mensaje() {
     }
 
-    public mensaje(String mensaje) {
+    public Mensaje(String mensaje) {
         this.mensaje = mensaje;
     }
 

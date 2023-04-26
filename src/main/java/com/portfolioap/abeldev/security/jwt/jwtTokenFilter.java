@@ -1,6 +1,6 @@
 package com.portfolioap.abeldev.security.jwt;
 
-import com.portfolioap.abeldev.security.service.userImplDetails;
+import com.portfolioap.abeldev.security.service.UserDetailsImpl;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -18,14 +18,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
  *
  * @author ABEL DEV
  */
-public class jwtTokenFilter extends OncePerRequestFilter {
+public class JwtTokenFilter extends OncePerRequestFilter {
 
-    private final static Logger logger = LoggerFactory.getLogger(jwtProvider.class);
+    private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
     @Autowired
-    jwtProvider jwtProvider;
+    JwtProvider jwtProvider;
     @Autowired
-    userImplDetails userImplDetails;
+    UserDetailsImpl userImplDetails;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

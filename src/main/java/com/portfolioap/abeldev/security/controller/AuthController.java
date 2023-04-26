@@ -1,12 +1,12 @@
 package com.portfolioap.abeldev.security.controller;
 
-import com.portfolioap.abeldev.security.Enums.ActionName;
+import com.portfolioap.abeldev.security.Enums.RolNombre;
 import com.portfolioap.abeldev.security.dto.LoginUsuario;
 import com.portfolioap.abeldev.security.dto.JwtDto;
 import com.portfolioap.abeldev.security.dto.NuevoUsuario;
 import com.portfolioap.abeldev.security.entity.Rol;
 import com.portfolioap.abeldev.security.entity.Usuario;
-import com.portfolioap.abeldev.security.jwt.jwtProvider;
+import com.portfolioap.abeldev.security.jwt.JwtProvider;
 import com.portfolioap.abeldev.security.service.RolService;
 import com.portfolioap.abeldev.security.service.UsuarioService;
 import java.util.HashSet;
@@ -46,39 +46,39 @@ public class AuthController {
     @Autowired
     RolService rolService;
     @Autowired
-    jwtProvider jwtProvider;
+    JwtProvider jwtProvider;
 
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity(new mensaje("CORREO NO VALIDO O CAMPOS INCORRECTOS"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("CORREO NO VALIDO O CAMPOS INCORRECTOS"), HttpStatus.BAD_REQUEST);
         }
 
         if (usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario())) {
-            return new ResponseEntity(new mensaje("USUARIO YA EXISTENTE"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("USUARIO YA EXISTENTE"), HttpStatus.BAD_REQUEST);
         }
 
         if (usuarioService.existsByCorreo(nuevoUsuario.getCorreo())) {
-            return new ResponseEntity(new mensaje("CORREO YA EXISTENTE"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("CORREO YA EXISTENTE"), HttpStatus.BAD_REQUEST);
         }
      
         Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), nuevoUsuario.getCorreo(), PasswordEncoder.encode(nuevoUsuario.getContraseña()));
 
         Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(ActionName.ROLE_USER).get());
+        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
 
         if (nuevoUsuario.getRoles().contains("admin")) 
-            roles.add(rolService.getByRolNombre(ActionName.ROLE_ADMIN).get());
+            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
         usuario.setRoles(roles);
         usuarioService.save(usuario);
         
-        return new ResponseEntity(new mensaje("USUARIO GUARDADO"), HttpStatus.CREATED);
+        return new ResponseEntity(new Mensaje("USUARIO GUARDADO"), HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity(new mensaje("CAMPOS INCORRECTOS"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("CAMPOS INCORRECTOS"), HttpStatus.BAD_REQUEST);
         }
         Authentication authentication = AuthenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getNombreUsuario(), loginUsuario.getContraseña()));
 

@@ -1,6 +1,6 @@
 package com.portfolioap.abeldev.security.entity;
 
-import com.portfolioap.abeldev.security.Enums.ActionName;
+import com.portfolioap.abeldev.security.Enums.RolNombre;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,12 +21,12 @@ public class Rol {
     private int id;
     @NotNull
     @Enumerated(EnumType.STRING)
-    private ActionName rolNombre;
+    private RolNombre rolNombre;
 
     public Rol() {
     }
 
-    public Rol(ActionName rolNombre) {
+    public Rol(RolNombre rolNombre) {
         this.rolNombre = rolNombre;
     }
 
@@ -38,11 +38,11 @@ public class Rol {
         this.id = id;
     }
 
-    public ActionName getRolNombre() {
+    public RolNombre getRolNombre() {
         return rolNombre;
     }
 
-    public void setRolNombre(ActionName rolNombre) {
+    public void setRolNombre(RolNombre rolNombre) {
         this.rolNombre = rolNombre;
     } 
 }

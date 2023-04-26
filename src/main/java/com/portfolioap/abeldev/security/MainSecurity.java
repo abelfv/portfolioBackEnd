@@ -1,8 +1,8 @@
 package com.portfolioap.abeldev.security;
 
-import com.portfolioap.abeldev.security.jwt.jwtEntryPoint;
-import com.portfolioap.abeldev.security.jwt.jwtTokenFilter;
-import com.portfolioap.abeldev.security.service.userImplDetails;
+import com.portfolioap.abeldev.security.jwt.JwtEntryPoint;
+import com.portfolioap.abeldev.security.jwt.JwtTokenFilter;
+import com.portfolioap.abeldev.security.service.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,13 +28,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class MainSecurity extends WebSecurityConfigurerAdapter{
 
     @Autowired
-    userImplDetails userImplDetails;
+    UserDetailsImpl userImplDetails;
     @Autowired
-    jwtEntryPoint jwtEntryPoint;
+    JwtEntryPoint jwtEntryPoint;
 
     @Bean
-    public jwtTokenFilter jwtTokenFilter() {
-        return new jwtTokenFilter();
+    public JwtTokenFilter jwtTokenFilter() {
+        return new JwtTokenFilter();
     }
 
     @Bean

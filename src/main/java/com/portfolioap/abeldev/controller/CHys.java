@@ -2,7 +2,7 @@ package com.portfolioap.abeldev.controller;
 
 import com.portfolioap.abeldev.Dto.dtoHys;
 import com.portfolioap.abeldev.entity.hys;
-import com.portfolioap.abeldev.security.controller.mensaje;
+import com.portfolioap.abeldev.security.controller.Mensaje;
 import com.portfolioap.abeldev.service.Shys;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +40,7 @@ public class CHys {
     @GetMapping("/detail/{id}")
     public ResponseEntity<hys> getById(@PathVariable("id") int id) {
         if (!shys.existsById(id)) {
-            return new ResponseEntity(new mensaje("NO SE ENCONTRO"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje("NO SE ENCONTRO"), HttpStatus.NOT_FOUND);
         }
         hys hYs = shys.getOne(id).get();
         return new ResponseEntity(hYs, HttpStatus.OK);
@@ -49,38 +49,38 @@ public class CHys {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id) {
         if (!shys.existsById(id)) {
-            return new ResponseEntity(new mensaje("NO SE ENCONTRO"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(new Mensaje("NO SE ENCONTRO"), HttpStatus.NOT_FOUND);
         }
         shys.delete(id);
-        return new ResponseEntity(new mensaje("HABILIDAD ELIMINADA"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("HABILIDAD ELIMINADA"), HttpStatus.OK);
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody dtoHys dtohys) {
         if (StringUtils.isBlank(dtohys.getNombre())) {
-            return new ResponseEntity(new mensaje("ESTE CAMPO ES OBLIGATORIO"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("ESTE CAMPO ES OBLIGATORIO"), HttpStatus.BAD_REQUEST);
         }
         if (shys.existsByNombre(dtohys.getNombre())) {
-            return new ResponseEntity(new mensaje("ESTA HABILIDAD YA EXISTE"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("ESTA HABILIDAD YA EXISTE"), HttpStatus.BAD_REQUEST);
         }
 
         hys hYs = new hys(dtohys.getNombre(), dtohys.getPorcentaje());
         shys.save(hYs);
 
-        return new ResponseEntity(new mensaje("HABILIDAD AGREGADA CORRECTAMENTE"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("HABILIDAD AGREGADA CORRECTAMENTE"), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoHys dtohys) {
         if (!shys.existsById(id)) {
-            return new ResponseEntity(new mensaje("ID NO EXISTE"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("ID NO EXISTE"), HttpStatus.BAD_REQUEST);
         }
         if (shys.existsByNombre(dtohys.getNombre()) && shys.getByNombre(dtohys.getNombre()).get()
                 .getId() != id) {
-            return new ResponseEntity(new mensaje("ESTA HABILIDAD YA EXISTE"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("ESTA HABILIDAD YA EXISTE"), HttpStatus.BAD_REQUEST);
         }
         if (StringUtils.isBlank(dtohys.getNombre())) {
-            return new ResponseEntity(new mensaje("ESTE CAMPO ES OBLIGATORIO"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("ESTE CAMPO ES OBLIGATORIO"), HttpStatus.BAD_REQUEST);
         }
 
         hys hYs = shys.getOne(id).get();
@@ -88,6 +88,6 @@ public class CHys {
         hYs.setPorcentaje(dtohys.getPorcentaje());
 
         shys.save(hYs);
-        return new ResponseEntity(new mensaje("HABILIDAD ACTUALIZADA CORRECTAMENTE"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("HABILIDAD ACTUALIZADA CORRECTAMENTE"), HttpStatus.OK);
     }
 }

@@ -19,9 +19,9 @@ import org.springframework.security.core.Authentication;
  * @author ABEL DEV
  */
 @Component
-public class jwtProvider {
+public class JwtProvider {
 
-    private final static Logger logger = LoggerFactory.getLogger(jwtProvider.class);
+    private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
     @Value("${jwt.secret}")
     private String secret;

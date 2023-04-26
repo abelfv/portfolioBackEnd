@@ -3,7 +3,7 @@ package com.portfolioap.abeldev.controller;
 import org.apache.commons.lang3.StringUtils;
 import com.portfolioap.abeldev.Dto.dtoExperiencia;
 import com.portfolioap.abeldev.entity.Experiencia;
-import com.portfolioap.abeldev.security.controller.mensaje;
+import com.portfolioap.abeldev.security.controller.Mensaje;
 import com.portfolioap.abeldev.service.SExperiencia;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,33 +36,41 @@ public class CExperiencia {
         List<Experiencia> list = sExperiencia.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
+    
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Experiencia> getById(@PathVariable("id") int id){
+        if(!sExperiencia.existsById(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+        Experiencia experiencia = sExperiencia.getOne(id).get();
+        return new ResponseEntity(experiencia, HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody dtoExperiencia dtoexp) {
         if (StringUtils.isBlank(dtoexp.getNombreE())) {
-            return new ResponseEntity(new mensaje("EL NOMBRE ES OBLIGATORIO, POR FAVOR, INGRESARLO"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("EL NOMBRE ES OBLIGATORIO, POR FAVOR, INGRESARLO"), HttpStatus.BAD_REQUEST);
         }
         if (sExperiencia.existsByNombreE(dtoexp.getNombreE())) {
-            return new ResponseEntity(new mensaje("EXPERIENCIA NO VALIDA, YA EXISTE"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("EXPERIENCIA NO VALIDA, YA EXISTE"), HttpStatus.BAD_REQUEST);
         }
 
         Experiencia experiencia = new Experiencia(dtoexp.getNombreE(), dtoexp.getDescripcionE());
         sExperiencia.save(experiencia);
-        return new ResponseEntity(new mensaje("LA EXPERIENCIA HA SIDO AGREGADA"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("LA EXPERIENCIA HA SIDO AGREGADA"), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoExperiencia dtoexp) {
-        if (!sExperiencia.existById(id)) {
-            return new ResponseEntity(new mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
+        if (!sExperiencia.existsById(id)) {
+            return new ResponseEntity(new Mensaje("El ID no existe"), HttpStatus.BAD_REQUEST);
         }
 
         if (sExperiencia.existsByNombreE(dtoexp.getNombreE()) && sExperiencia.getByNombreE(dtoexp.getNombreE()).get().getId() != id) {
-            return new ResponseEntity(new mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("Esa experiencia ya existe"), HttpStatus.BAD_REQUEST);
         }
 
         if (StringUtils.isBlank(dtoexp.getNombreE())) {
-            return new ResponseEntity(new mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         }
 
         Experiencia experiencia = sExperiencia.getOne(id).get();
@@ -70,15 +78,15 @@ public class CExperiencia {
         experiencia.setDescripcionE((dtoexp.getDescripcionE()));
 
         sExperiencia.save(experiencia);
-        return new ResponseEntity(new mensaje("Experiencia actualizada"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("Experiencia actualizada"), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") int id) {
-        if (!sExperiencia.existById(id)) {
-            return new ResponseEntity(new mensaje("no existe"), HttpStatus.NOT_FOUND);
+        if (!sExperiencia.existsById(id)) {
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
         }
         sExperiencia.delete(id);
-        return new ResponseEntity(new mensaje("producto eliminado"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("producto eliminado"), HttpStatus.OK);
     }
 }

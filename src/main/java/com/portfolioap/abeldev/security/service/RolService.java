@@ -1,12 +1,12 @@
 package com.portfolioap.abeldev.security.service;
 
-import com.portfolioap.abeldev.security.Enums.ActionName;
+import com.portfolioap.abeldev.security.Enums.RolNombre;
 import com.portfolioap.abeldev.security.entity.Rol;
-import com.portfolioap.abeldev.security.repository.InterfaceRolRepository;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.portfolioap.abeldev.security.repository.iRolRepository;
 
 /**
  *
@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service;
 public class RolService {
 
     @Autowired
-    InterfaceRolRepository interfaceRolRepository;
+    iRolRepository interfaceRolRepository;
 
-    public Optional<Rol> getByRolNombre(ActionName actionName) {
-        return interfaceRolRepository.findByRolNombre(actionName);
+    public Optional<Rol> getByRolNombre(RolNombre rolNombre) {
+        return interfaceRolRepository.findByRolNombre(rolNombre);
     }
 
     public void save(Rol rol) {
