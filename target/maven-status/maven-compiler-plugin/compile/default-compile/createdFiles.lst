@@ -20,7 +20,6 @@ com\portfolioap\abeldev\security\entity\UsuarioPrincipal.class
 com\portfolioap\abeldev\security\repository\iUsuarioRepository.class
 com\portfolioap\abeldev\controller\CEducacion.class
 com\portfolioap\abeldev\security\repository\iRolRepository.class
-com\portfolioap\abeldev\Interface\IPersonaService.class
 com\portfolioap\abeldev\security\dto\LoginUsuario.class
 com\portfolioap\abeldev\service\Shys.class
 com\portfolioap\abeldev\security\entity\Rol.class
